@@ -1,15 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-// data
-const course = 'Half Stack application development'
-const part1 = 'Fundamentals of React'
-const exercises1 = 10
-const part2 = 'Using props to pass data'
-const exercises2 = 7
-const part3 = 'State of a component'
-const exercises3 = 14
-
 const Header = (props) => {
   return (
     <div>
@@ -28,13 +19,11 @@ const Part = (props) => {
   )
 }
 
-const Content = () => {
+const Content = (props) => {
   return (
     // render the 3 parts
     <div>
-      <Part name={part1} exercise={exercises1} />
-      <Part name={part2} exercise={exercises2} />
-      <Part name={part3} exercise={exercises3} />
+      {props.parts.map((val, i) => (<Part key={i} name={val.name} exercise={val.exercises}/>))}
     </div>
   )
 }
@@ -48,11 +37,27 @@ const Total = (props) => {
 }
 
 const App = () => {
+  const course = 'Half Stack application development'
+  const part1 = {
+    name: 'Fundamentals of React',
+    exercises: 10
+  }
+  const part2 = {
+    name: 'Using props to pass data',
+    exercises: 7
+  }
+  const part3 = {
+    name: 'State of a component',
+    exercises: 14
+  }
+
+  let parts = [part1, part2, part3];
+
   return (
     <div>
       <Header course={course}/>
-      <Content />
-      <Total numExercises={exercises1 + exercises2 + exercises3} />
+      <Content parts={parts} />
+      <Total numExercises={parts.reduce(((acc, curr) => acc + curr.exercises), 0)} />
     </div>
   )
 }
