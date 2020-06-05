@@ -25,12 +25,28 @@ const App = (props) => {
 
   const handleClick = () => setSelected(Math.floor((Math.random() * anecdotes.length)))
 
+  const getMostVotedSelection = () => {
+    let maxIndex = 0
+
+    for (let i = 0; i < points.length; i++) 
+      if (points[i] > points[maxIndex])
+        maxIndex = i
+
+    return maxIndex
+  }
+
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       {props.anecdotes[selected]} <br></br>
       has {points[selected]} votes <br></br>
       <Button onClick={handleVote} text={'vote'} />
       <Button onClick={handleClick} text={'next anecdote'} />
+
+      <h1>Anecdote with most votes</h1>
+      {props.anecdotes[getMostVotedSelection()]} <br></br>
+      has {points[getMostVotedSelection()]} votes
+
     </div>
   )
 }
