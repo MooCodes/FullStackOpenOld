@@ -10,6 +10,8 @@ const Button = (props) => {
 }
 
 const Statistics = ({good, neutral, bad}) => {
+  if (good + neutral + bad === 0) return <div><p>No feedback given</p></div>
+
   const getAverage = () => {
     if (good + neutral + bad === 0) return 0
     return (good + (bad * -1)) / (good + neutral + bad)
