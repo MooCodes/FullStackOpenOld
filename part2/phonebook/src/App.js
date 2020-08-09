@@ -10,6 +10,7 @@ const App = () => {
   ])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [filteredTerm, setFilteredTerm] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -21,9 +22,13 @@ const App = () => {
       alert(`${newName} is already added to phonebook`)
   }
 
+  const filteredPersons = persons.filter(person => person.name.toLowerCase().indexOf(filteredTerm.toLowerCase()) > -1)
+
   return (
     <div>
       <h2>Phonebook</h2>
+      filter shown with <input onChange={(e) => setFilteredTerm(e.target.value)}/>
+      <h2>add a new</h2>
       <form onSubmit={handleSubmit}>
         <div>name: <input onChange={(e) => setNewName(e.target.value)}/></div>
         <div>number: <input onChange={(e) => setNewNumber(e.target.value)}/></div>
@@ -31,7 +36,7 @@ const App = () => {
       </form>
       <h2>Numbers</h2>
       {
-        persons.map(person => <Person key={person.name} person={person}/>)
+        filteredPersons.map(person => <Person key={person.name} person={person}/>)
       }
     </div>
   )
